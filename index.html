@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextInput İşlemleri</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="input">
+            <input type="text" id="input">
+            <input type="submit" onclick="run()">
+        </div>
+
+        <div class="output">
+            <input type="text" placeholder="Kaç yazı ayırdım?" disabled>
+            <input type="text" placeholder="Karıştırılmış hali" disabled>
+            <input type="text" placeholder="Ortalama" disabled>
+        </div>
+
+    </div>
+
+    <script>
+        var input = document.querySelector("#input")
+
+        var outputs = document.querySelectorAll("div.output")
+   
+        function HepsiSayiMi(Dizi){
+            for(let i = 0; i < Dizi.length; i++){
+                if(!Number(Dizi[i])){
+                    console.log("String yakalandı")
+                    return false
+                }
+            }
+            console.log("Hepsi number")
+            return true
+        }
+        
+        function run(){
+            var metin = input.value;
+            var Dizi = metin.split(",")
+            outputs[0].childNodes[1].value=== "" ? outputs[0].childNodes[1].value = "" : outputs[0].childNodes[1].value = Dizi.length; 
+            outputs[0].childNodes[3].value = Dizi.sort(() => Math.random() - 0.5)
+
+            var toplam = 0
+            if(HepsiSayiMi(Dizi)){
+                Dizi.forEach(element => {
+                    toplam += Number(element) 
+                    
+                });
+
+                outputs[0].childNodes[5].value = toplam/Dizi.length
+            }else{
+                outputs[0].childNodes[5].value = "Tüm değerler number değil !"
+            }
+        }
+        
+
+    </script>
+</body>
+
+</html>
